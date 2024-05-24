@@ -1,14 +1,14 @@
 <?php
-// Memulai sesi
+
 session_start();
 
-// Definisi kelas AntrianKlinik
+
 class AntrianKlinik {
     private $nomor_antrian;
 
     public function __construct() {
         if (!isset($_SESSION['nomor_antrian'])) {
-            $_SESSION['nomor_antrian'] = 0; // Inisialisasi nomor antrian
+            $_SESSION['nomor_antrian'] = 0; 
         }
         $this->nomor_antrian = $_SESSION['nomor_antrian'];
     }
@@ -25,25 +25,25 @@ class AntrianKlinik {
     }
 }
 
-// Membuat objek AntrianKlinik jika belum ada
+
 if (!isset($_SESSION['antrian_klinik'])) {
     $_SESSION['antrian_klinik'] = new AntrianKlinik();
 }
 
 $antrianKlinik = $_SESSION['antrian_klinik'];
 
-// Ambil data pendaftaran dari session
+
 $data_pendaftaran = isset($_SESSION['pendaftaran']) ? $_SESSION['pendaftaran'] : null;
 
-// Jika pengguna mengonfirmasi pendaftaran
+
 if (isset($_POST['konfirmasi'])) {
-    // Ambil nomor antrean dari AntrianKlinik
+   
     $nomor_antrian = $antrianKlinik->ambilNomorAntrian();
     
-    // Hapus data pendaftaran dari session
+   
     unset($_SESSION['pendaftaran']);
 
-    // Tampilkan kotak konfirmasi nomor antrean
+   
     echo "<title>KLINIK TONGFENG</title>
             <style>
                 body {
@@ -128,7 +128,7 @@ if (isset($_POST['konfirmasi'])) {
             <button type='button' class='cetak-button' onclick='window.print()'>Cetak</button>
           </div>";
           
-    exit(); // Menghentikan eksekusi skrip setelah menampilkan nomor antrian
+    exit(); 
 }
 ?>
 
@@ -216,7 +216,7 @@ if (isset($_POST['konfirmasi'])) {
         <?php
         if ($data_pendaftaran) {
             foreach ($data_pendaftaran as $key => $value) {
-                if ($key != 'nomor_antrian') { // Jangan tampilkan nomor antrian di sini
+                if ($key != 'nomor_antrian') { 
                     $label = ucfirst(str_replace('_', ' ', $key));
                     echo "<p><strong>$label:</strong> $value</p>";
                 }
