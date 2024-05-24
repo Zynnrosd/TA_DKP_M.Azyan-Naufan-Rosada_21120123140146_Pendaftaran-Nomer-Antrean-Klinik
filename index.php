@@ -1,14 +1,14 @@
 <?php
-// Memulai sesi
+
 session_start();
 
-// Definisi kelas AntrianKlinik
+
 class AntrianKlinik {
     private $nomor_antrian;
 
     public function __construct() {
         if (!isset($_SESSION['nomor_antrian'])) {
-            $_SESSION['nomor_antrian'] = 0; // Inisialisasi nomor antrian
+            $_SESSION['nomor_antrian'] = 0; 
         }
         $this->nomor_antrian = $_SESSION['nomor_antrian'];
     }
@@ -25,22 +25,22 @@ class AntrianKlinik {
     }
 }
 
-// Membuat objek AntrianKlinik jika belum ada
+
 if (!isset($_SESSION['antrian_klinik'])) {
     $_SESSION['antrian_klinik'] = new AntrianKlinik();
 }
 
 $antrianKlinik = $_SESSION['antrian_klinik'];
 
-// Proses pendaftaran pasien atau operasi lainnya yang melibatkan objek AntrianKlinik
+
 if (isset($_POST['daftar'])) {
-    // Simpan data pendaftaran ke dalam session
+    
     $_SESSION['pendaftaran'] = $_POST;
 
-    // Ambil nomor antrian dan tambahkan ke data pendaftaran
+    
     $_SESSION['pendaftaran']['nomor_antrian'] = $antrianKlinik->ambilNomorAntrian();
 
-    // Alihkan ke confirm.php
+    
     header("Location: confirm.php");
     exit();
 }
