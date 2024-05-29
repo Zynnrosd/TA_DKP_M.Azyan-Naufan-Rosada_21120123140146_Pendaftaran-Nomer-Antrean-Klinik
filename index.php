@@ -32,6 +32,12 @@ if (!isset($_SESSION['antrian_klinik'])) {
 
 $antrianKlinik = $_SESSION['antrian_klinik'];
 
+// Reset nomor antrian setiap hari sekali
+if (!isset($_SESSION['last_reset']) || date('Y-m-d') != $_SESSION['last_reset']) {
+    $antrianKlinik->resetNomorAntrian();
+    $_SESSION['last_reset'] = date('Y-m-d'); // Simpan tanggal hari ini sebagai waktu terakhir reset
+}
+
 // Proses pendaftaran pasien atau operasi lainnya yang melibatkan objek AntrianKlinik
 if (isset($_POST['daftar'])) {
     // Simpan data pendaftaran ke dalam session
